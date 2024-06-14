@@ -1,15 +1,13 @@
 import "reflect-metadata";
 import { ApolloServer } from "apollo-server-express";
-import * as Express from "express";
+import Express from "express";
 import { buildSchema } from "type-graphql";
 import { ApolloServerPluginLandingPageGraphQLPlayground } from "apollo-server-core";
 import { createConnection } from "typeorm";
 import { RegisterResolver } from "./modules/user/Register";
 
 
-
 const main = async () => {
-
 
   await createConnection()
 
@@ -18,7 +16,9 @@ const main = async () => {
 
   });
 
-  const apolloServer = new ApolloServer({ schema, plugins: [ApolloServerPluginLandingPageGraphQLPlayground] });
+  const apolloServer = new ApolloServer({
+    schema, plugins: [ApolloServerPluginLandingPageGraphQLPlayground]
+  });
 
   await apolloServer.start();
 

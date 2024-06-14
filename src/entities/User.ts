@@ -1,34 +1,34 @@
-import { ObjectType, Field, Int } from "type-graphql";
+import { ObjectType, Field, Root, ID } from "type-graphql";
 import { Entity, PrimaryGeneratedColumn, Column, BaseEntity } from "typeorm";
 
 @ObjectType()
 @Entity()
 export class User extends BaseEntity {
+  @Field(() => ID)
   @PrimaryGeneratedColumn()
-  @Field(() => Int)
   id: number;
 
-  @Column()
   @Field(() => String)
+  @Column()
   firstName: string;
 
-  @Column()
   @Field(() => String)
+  @Column()
   lastName: string;
 
-  @Column("text", { unique: true })
   @Field(() => String)
+  @Column("text", { unique: true })
   email: string;
 
   @Column()
   password: string;
 
   @Field(() => String)
-  get name(): string {
-    return `${this.firstName} ${this.lastName}`;
+  name(@Root() parent: User): string {
+    return `${parent.firstName} ${parent.lastName}`;
   }
 
-  @Column()
   @Field(() => Boolean)
+  @Column()
   isActive: boolean;
 }
